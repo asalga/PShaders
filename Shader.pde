@@ -3,7 +3,6 @@ public class Shader{
   
   public void setup(String shaderPath){
     shader = loadShader(shaderPath);
-    println(shader);
   }
   
   public void update(){
@@ -11,5 +10,9 @@ public class Shader{
   
   public void load(){
     shader(shader);
+  }
+
+  public void draw(){
+    rect(0, 0, width, height);
   }
 }

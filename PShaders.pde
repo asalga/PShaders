@@ -1,4 +1,4 @@
-int currShaderIndex = -1;
+int currShaderIndex = 0;
 ArrayList shaders;
 
 void keyPressed(){
@@ -12,6 +12,7 @@ void loadNextShader(){
   }
   
   Shader shader = (Shader)shaders.get(currShaderIndex);
+  ((Shader)shaders.get(currShaderIndex)).load();
 }
 
 void setup(){
@@ -20,21 +21,29 @@ void setup(){
   shaders = new ArrayList<Shader>();
   setupShaders();
   
-  loadNextShader();
+  Shader shader = (Shader)shaders.get(currShaderIndex);
+  ((Shader)shaders.get(currShaderIndex)).load();
 }
 
 void setupShaders(){
+
+  shaders.add(new WobbleShader());
+  shaders.add(new SphereShader());
   shaders.add(new SimpleShader());
-  shaders.add(new ScanlineShader());
   shaders.add(new Checkerboard());
   shaders.add(new CircleShader());
   shaders.add(new BouncingCircle());
-  shaders.add(new SphereShader());
+  shaders.add(new BlurShader());
+  
+  //shaders.add(new SimpleImgBlurShader());
+  //shaders.add(new FogShader());
+  //shaders.add(new ScanlineShader());
 }
 
 void draw(){
-  ((Shader)shaders.get(currShaderIndex)).load();
-  ((Shader)shaders.get(currShaderIndex)).update();
+  Shader currShader = (Shader)shaders.get(currShaderIndex);
+  currShader.update();
+  
   background(0);
-  rect(0, 0, width, height);
+  currShader.draw();
 }
